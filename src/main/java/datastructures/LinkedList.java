@@ -1,6 +1,8 @@
 package datastructures;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public class LinkedList {
 
@@ -16,6 +18,12 @@ public class LinkedList {
         }
     }
 
+    /**
+     * Initializes a new linked list with a single node containing the specified value.
+     * The head and tail pointers both point to this new node, and the length of the list is set to 1.
+     * 
+     * @param value the value to be stored in the initial node of the linked list
+     */
     public LinkedList(int value) {
         Node newNode = new Node(value);
         head = newNode;
@@ -23,18 +31,39 @@ public class LinkedList {
         length = 1;
     }
 
+    /**
+     * Returns the head node of the linked list.
+     *
+     * @return the head node of the linked list
+     */
     public Node getHead() {
         return head;
     }
 
+    /**
+     * Returns the tail node of the linked list.
+     *
+     * @return the tail node of the linked list
+     */
     public Node getTail() {
         return tail;
     }
 
+    /**
+     * Returns the length of the linked list.
+     * 
+     * @return the length of the linked list
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * Prints the linked list in a readable format, showing the sequence of node values from head to tail.
+     * Each node's value is followed by an arrow ("->") to indicate the 
+     * link to the next node, ending with "null" to signify the end of the list.
+     * Example output: "3 -> 5 -> 7 -> null"    
+     */
     public void printList() {
         Node temp = head;
         while (temp != null) {
@@ -45,6 +74,9 @@ public class LinkedList {
         System.out.println();
     }
 
+    /**
+     * Prints all relevant information about the linked list, including the head, tail, length, and the list itself.
+     */
     public void printAll() {
         if (length == 0) {
             System.out.println("Head: null");
@@ -62,12 +94,24 @@ public class LinkedList {
         }
     }
 
+    /**
+     * Empties the linked list by removing all nodes and resetting the head, tail, and length.
+     */
     public void makeEmpty() {
         head = null;
         tail = null;
         length = 0;
     }
 
+    /**
+     * Appends a new node with the specified value to the end of the linked list.
+     * If the list is empty, the new node becomes both the head and tail of the list.
+     * Otherwise, it is added after the current tail, and the tail pointer is updated.
+     * The length of the list is incremented by 1.
+     * 
+     * @param value the value to be stored in the new node
+     * @return the updated linked list
+     */
     public LinkedList append(int value) {
         Node newNode = new Node(value);
         if (length == 0) {
@@ -81,6 +125,11 @@ public class LinkedList {
         return this;
     }
 
+    /**
+     * Removes the last node from the linked list and returns it.
+     *
+     * @return the removed node, or null if the list is empty
+     */
     public Node removeLast() {
         if (length == 0) return null;
         Node temp = head;
@@ -99,6 +148,15 @@ public class LinkedList {
         return temp;
     }
 
+    /**
+     * Prepends a new node with the specified value to the beginning of the linked list.
+     * If the list is empty, the new node becomes both the head and tail of the list.
+     * Otherwise, it is added before the current head, and the head pointer is updated.
+     * The length of the list is incremented by 1.
+     * 
+     * @param value the value to be stored in the new node
+     * @return the updated linked list
+     */
     public LinkedList prepend(int value) {
         Node newNode = new Node(value);
         if (length == 0) {
@@ -112,6 +170,14 @@ public class LinkedList {
         return this;
     }
 
+    /**
+     * Removes the first node from the linked list and returns it.
+     * If the list is empty, it returns null.
+     * The head pointer is updated to the next node, and the length of the list is decremented by 1.
+     * If the list becomes empty after removal, the tail pointer is also set to null.
+     *
+     * @return the removed node, or null if the list is empty
+     */
     public Node removeFirst() {
         if (length == 0) return null;
         Node temp = head;
@@ -124,6 +190,14 @@ public class LinkedList {
         return temp;
     }
 
+    /**
+     * Retrieves the node at the specified index in the linked list.
+     * If the index is out of bounds (less than 0 or greater than or equal to the length of the list), it returns null.
+     * Otherwise, it iterates through the list to find and return the node at the given index.
+     *
+     * @param index the index of the node to retrieve
+     * @return the node at the specified index, or null if the index is out of bounds
+     */
     public Node get(int index) {
         if (index < 0 || index >= length) return null;
         Node temp = head;
@@ -133,6 +207,15 @@ public class LinkedList {
         return temp;
     }
 
+    /**
+     * Updates the value of the node at the specified index in the linked list.
+     * If the index is valid, it sets the node's value to the provided value and returns true.
+     * If the index is out of bounds, it returns false.
+     *
+     * @param index the index of the node to update
+     * @param value the new value to set for the node
+     * @return true if the node was updated successfully, false if the index is out of bounds
+     */
     public boolean set(int index, int value) {
         Node temp = get(index);
         if (temp != null) {
@@ -142,6 +225,17 @@ public class LinkedList {
         return false;
     }
 
+    /**
+     * Inserts a new node with the specified value at the given index in the linked list.
+     * If the index is 0, it prepends the new node to the beginning of the list.
+     * If the index is equal to the length of the list, it appends the new node to the end of the list.
+     * If the index is out of bounds (less than 0 or greater than the length), it returns false.
+     * Otherwise, it inserts the new node at the specified index and returns true.
+     *
+     * @param index the index at which to insert the new node
+     * @param value the value to be stored in the new node
+     * @return true if the node was inserted successfully, false if the index is out of bounds
+     */
     public boolean insert(int index, int value)  {
         if (index < 0 || index > length) return false;
         if (index == 0) {
@@ -160,6 +254,16 @@ public class LinkedList {
         return true;
     }
 
+    /**
+     * Removes the node at the specified index from the linked list and returns it.
+     * If the index is 0, it removes the first node.
+     * If the index is equal to the length minus one, it removes the last node.
+     * If the index is out of bounds (less than 0 or greater than or equal to the length), it returns null.
+     * Otherwise, it removes the node at the specified index and returns it.
+     *
+     * @param index the index of the node to remove
+     * @return the removed node, or null if the index is out of bounds
+     */
     public Node remove(int index) {
         if (index < 0 || index >= length) return null;
         if (index == 0) return removeFirst();
@@ -174,6 +278,13 @@ public class LinkedList {
         return temp;
     }
 
+    /**
+     * Reverses the linked list in place by iterating through the list and reversing the direction of the next pointers.
+     * The head and tail pointers are swapped, and the next pointers of each node are updated to point to the previous node.
+     * This process continues until all nodes have been processed, resulting in a reversed linked list.
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * Space Complexity: O(1), as the reversal is done in place without using any additional data structures.
+     */
     public void reverse() {
         // Set temp to the current head of the linked list
         Node temp = head;
@@ -188,7 +299,7 @@ public class LinkedList {
         Node before = null;
 
         // Loop through the linked list, reversing the order of the nodes
-        for (int i = 0; i < length; i++) {
+        while(temp!=null) {
             // Set after to be the next node after the current node
             after = temp.next;
             // Set the current node's next pointer to the previous node
@@ -200,6 +311,12 @@ public class LinkedList {
         }
     }
 
+    /**
+     * Finds the middle node of the linked list using the two-pointer technique.
+     * The slow pointer moves one step at a time, while the fast pointer moves two steps at a time.
+     * When the fast pointer reaches the end of the list, the slow pointer will be at the middle node.
+     * @return The Node object representing the middle node of the linked list.
+     */
     public Node findMiddleNode() {
         // Initialize slow pointer to the head of the linked list
         Node slow = head;
@@ -221,32 +338,53 @@ public class LinkedList {
         return slow;
     }
 
-    public boolean hasLoop() {
-        // Initialize slow pointer to the head of the linked list
+    /**
+     * Detects if the linked list has a loop (cycle) and returns the node where the cycle begins.
+     * 1. Uses Floyd's Cycle-Finding Algorithm (Tortoise and Hare algorithm) to detect the cycle.
+     * 2. If a cycle is detected, it finds the starting node of the cycle by
+     *    moving one pointer to the head and keeping the other at the meeting point,
+     *    then moving both pointers one step at a time until they meet.
+     * 3. If no cycle is detected, it returns null.
+     * 
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * Space Complexity: O(1), as it uses only a constant amount of extra space
+     * 
+     * @return The Node object where the cycle begins, or null if there is no cycle.
+     */
+    public Node detectLoopNode() {
+        // Initialize slow and fast pointers to the head of the linked list
         Node slow = head;
-
-        // Initialize fast pointer to the head of the linked list
         Node fast = head;
 
-        // Traverse the linked list with two pointers: slow and fast
-        // slow moves one node at a time, while fast moves two nodes at a time
+        // First, detect if there is a cycle
         while (fast != null && fast.next != null) {
-            // Move slow pointer to the next node
             slow = slow.next;
-
-            // Move fast pointer to the next two nodes
             fast = fast.next.next;
-
-            // If slow pointer meets fast pointer, then there is a loop in the linked list
             if (slow == fast) {
-                return true;
+                Node finder = head;
+                // Cycle detected, now find the start node of the cycle
+                while (finder != slow) {
+                    finder = finder.next;
+                    slow = slow.next;
+                }
+                return finder; // Node where the cycle begins
             }
         }
-
-        // If the loop has not been detected after the traversal, then there is no loop in the linked list
-        return false;
+        // No cycle detected
+        return null;
     }
 
+    /**
+     * Below is the intution behind the algorithm:
+     * 1. We have two pointers, slow and fast.
+     * 2. We move the fast pointer k steps ahead.
+     * 3. Then we move both pointers one step at a time until the fast pointer
+     *    reaches the end of the list which means the fast pointer has moved n-k steps. 
+     * 4. At that point, the slow pointer has moved n-k steps as well from the beginning, 
+     *    so it is at the kth node from the end because n-(n-k) = k.
+     * @param k the position from the end of the linked list
+     * @return The Node object representing the kth node from the end of the linked list.
+     */
     public Node findKthFromEnd(int k) {
         Node slow = head; // Initialize slow pointer at head
         Node fast = head; // Initialize fast pointer at head
@@ -268,6 +406,14 @@ public class LinkedList {
         return slow; // Return the kth node from the end (slow pointer)
     }
 
+    /**
+     * Removes duplicate values from the linked list using a hash table to track seen values.
+     * Iterates through the linked list, checking if each value has been seen before.
+     * If a value is a duplicate, it is removed by adjusting the next pointer of the
+     * previous node to skip the current node.
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * Space Complexity: O(n), as it uses a hash table to store seen values.
+     */
     public void removeDuplicates() {
         HashSet<Integer> hashSet = new HashSet<>();
         Node curr = head;
@@ -286,6 +432,20 @@ public class LinkedList {
         }
     }
 
+    /**
+     * Merges the current linked list with another sorted linked list.
+     * 1. The method iterates through both linked lists, comparing the values of their nodes,
+     *    and appending the smaller node to the merged list. It continues this process until
+     *    all nodes from both lists have been processed. If one list is exhausted before the other,
+     *    the remaining nodes from the non-exhausted list are appended to the end of the merged list.
+     * 2. The head and tail pointers of the current list are updated to reflect the merged list,
+     *    and the length is adjusted accordingly.
+     * 
+     * Time Complexity: O(n + m), where n and m are the lengths of the two linked lists.
+     * Space Complexity: O(1), as the merging is done in place without using any additional data structures.
+     * 
+     * @param otherList
+     */
     public void merge(LinkedList otherList) {
         // get the head node of the other linked list
         Node otherHead = otherList.getHead();
@@ -328,6 +488,41 @@ public class LinkedList {
         head = dummy.next;
         // update the length of the current list to reflect the merged list
         length += otherList.getLength();
+    }
+
+    /**
+     * Merges two sorted linked lists into a single sorted linked list using a min-heap (priority queue).
+     * 1. The method initializes a min-heap and adds the head nodes of both linked lists to it.
+     * 2. It then repeatedly extracts the smallest node from the heap, appending it to the merged list,
+     *    and adds the next node from the extracted node's list to the heap if it exists.
+     * 3. This process continues until all nodes from both lists have been processed.
+     * 4. The method returns the head of the merged linked list.
+     * 
+     * Time Complexity: O((n + m) log(n + m)), where n and m are the lengths of the two linked lists.
+     * Space Complexity: O(n + m), as the min-heap can contain up to n + m nodes.
+     * 
+     * @param otherList the other sorted linked list to merge with
+     * @return The head node of the merged sorted linked list.
+     */
+    public Node mergeUsingMinHeap(LinkedList otherList) {
+        PriorityQueue<Node> minHeap = new PriorityQueue<>(Comparator.comparingInt(node -> node.value));
+        // Add the head of each list to the min-heap if not null
+        if (this.head != null) minHeap.offer(this.head);
+        if (otherList.head != null) minHeap.offer(otherList.head);
+
+        Node dummy = new Node(0);
+        Node current = dummy;
+
+        while (!minHeap.isEmpty()) {
+            Node minNode = minHeap.poll();
+            current.next = minNode;
+            current = current.next;
+            // If the polled node has a next, add it to the heap
+            if (minNode.next != null) {
+                minHeap.offer(minNode.next);
+            }
+        }
+        return dummy.next;
     }
 
     /*

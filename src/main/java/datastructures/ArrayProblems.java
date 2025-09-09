@@ -40,8 +40,7 @@ public class ArrayProblems {
             // Write it at the position of the write pointer.
             // Move the writePointer forward
             if (nums[readPointer] != k) {
-                nums[writePointer] = nums[readPointer];
-                writePointer++;
+                nums[writePointer++] = nums[readPointer];
             }
 
         // Return a copy of the array until the writePointer.
@@ -107,11 +106,11 @@ public class ArrayProblems {
         k = k%nums.length; //cases where k>arr.length
         int n = nums.length;
         // Swap numbers from 0 till n-k-1 iteratively
-        rotate(nums, 0, n-k-1);
+        reverse(nums, 0, n-k-1);
         // Swap numbers from n-k till end of the array
-        rotate(nums, n-k, n-1);
+        reverse(nums, n-k, n-1);
         // Swap numbers from 0 till end of the array
-        rotate(nums, 0, n-1);
+        reverse(nums, 0, n-1);
     }
 
     /**
@@ -129,7 +128,7 @@ public class ArrayProblems {
      * @param start the starting index of the portion to be reversed
      * @param end the ending index of the portion to be reversed
      */
-    private static void rotate(int[] nums, int start, int end) {
+    private static void reverse(int[] nums, int start, int end) {
         while(start<end) {
             int temp = nums[start];
             nums[start] = nums[end];
