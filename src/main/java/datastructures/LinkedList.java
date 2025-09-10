@@ -525,6 +525,18 @@ public class LinkedList {
         return dummy.next;
     }
 
+    /**
+     * Partitions the linked list into two parts: values less than x
+     * and values greater than or equal to x.
+     * The original relative order of the nodes in each partition is preserved.
+     * 1. The method creates two dummy nodes to serve as the heads of the two partitions.
+     * 2. It iterates through the original linked list, adding each node to
+     *    the appropriate partition based on its value relative to x.
+     * 3. After processing all nodes, it connects the two partitions and updates
+     *    the head of the original list to point to the start of the first partition.
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * @param x the partition value
+     */
     /*
     Linked List  3 -> 8 -> 5 -> 10 -> 2 -> 1
     First Partition  0 -> 3 -> 2 -> 1
@@ -588,6 +600,19 @@ public class LinkedList {
         head = dummy1.next;
     }
 
+    /**
+     * Reverses a section of the linked list between the specified start and end indices (inclusive).
+     * 1. The method first checks if the linked list is empty. If it is, it exits without making any changes.
+     * 2. A dummy node is created to simplify edge cases, such as reversing from the head of the list.
+     * 3. The method navigates to the node just before the start index and marks the beginning of the sublist to be reversed.
+     * 4. It then iteratively reverses the nodes in the specified range by adjusting the next pointers.
+     * 5. Finally, it updates the head of the linked list if the reversal included the first node.
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * Space Complexity: O(1), as the reversal is done in place without using any additional data structures.
+     * 
+     * @param startIndex the starting index of the section to be reversed
+     * @param endIndex the ending index of the section to be reversed
+     */
     public void reverseBetween(int startIndex, int endIndex) {
         // Check: If linked list is empty, nothing to reverse.
         // Exit the method.
@@ -630,6 +655,15 @@ public class LinkedList {
         head = dummyNode.next;
     }
 
+    /**
+     * Swaps every two adjacent nodes in the linked list.
+     * 1. The method uses a dummy node to simplify edge cases, such as swapping the first pair of nodes.
+     * 2. It iterates through the linked list, swapping pairs of nodes by adjusting their next pointers.
+     * 3. The process continues until all pairs have been swapped.
+     * 4. Finally, it updates the head of the linked list to point to the new first node.
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * Space Complexity: O(1), as the swapping is done in place without using any additional data structures.
+     */
     public void swapPairs() {
 
         // Create a dummy node pointing to the head
@@ -667,6 +701,52 @@ public class LinkedList {
 
         // Reset head to point to the new start of the list
         head = dummy.next;
+    }
+
+    /**
+     * Checks if the linked list is a palindrome.
+     * 1. The method first finds the middle of the linked list using the slow and fast pointer technique.
+     * 2. It then reverses the second half of the linked list.
+     * 3. Finally, it compares the values of the nodes in the first half with the values in the reversed second half.
+     * 
+     * If all corresponding values match, the linked list is a palindrome.
+     * Time Complexity: O(n), where n is the number of nodes in the linked list.
+     * Space Complexity: O(1), as the palindrome check is done in place without using any additional data structures.
+     * @return true if the linked list is a palindrome, false otherwise
+     */
+    public boolean isPalindrome() {
+        if (head == null || head.next == null) return true;
+
+        // Step 1: Find the middle of the linked list
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Step 2: Reverse the second half of the linked list
+        Node prev = null;
+        Node current = slow;
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+        // Step 3: Compare the first half and the reversed second half
+        Node left = head;
+        Node right = prev; // 'prev' is now the head of the reversed second half
+        while (right != null) {
+            if (left.value != right.value) {
+                return false; // Values do not match, not a palindrome
+            }
+            left = left.next;
+            right = right.next;
+        }
+
+        return true; // All values matched, it is a palindrome
     }
 
     public void insertionSort() {
