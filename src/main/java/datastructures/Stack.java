@@ -113,14 +113,17 @@ public class Stack<T> {
         for(char ch:input.toCharArray()) {
             if(ch=='('||ch=='{'||ch=='[') {
                 stack.push(ch);
-            } else {
+            } else if(ch==')'||ch=='}'||ch==']') {
                 if(stack.isEmpty()) {
                     return false;
                 }
-                if((stack.peek()=='(' && ch==')') ||
-                        (stack.peek()=='[' && ch==']') ||
-                        (stack.peek()=='{' && ch=='}')) {
+                char top = stack.peek();
+                if((top=='(' && ch==')') ||
+                   (top=='[' && ch==']') ||
+                   (top=='{' && ch=='}')) {
                     stack.pop();
+                } else {
+                    return false;
                 }
             }
         }
