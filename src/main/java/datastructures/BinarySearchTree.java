@@ -356,10 +356,10 @@ public class BinarySearchTree {
         // Recurse down the tree
         if (value < currentNode.value) {
             // If less, go left
-            currentNode.left = deleteNode(currentNode.left, value);
+            currentNode.left = rDeleteNode(currentNode.left, value);
         } else if (value > currentNode.value) {
             // If more, go right
-            currentNode.right = deleteNode(currentNode.right, value);
+            currentNode.right = rDeleteNode(currentNode.right, value);
         } else {
             // Value is same as current's value, node to delete
             if (currentNode.left == null && currentNode.right == null) {
@@ -376,8 +376,8 @@ public class BinarySearchTree {
                 int subTreeMin = minValue(currentNode.right);
                 // Replace with min in right subtree
                 currentNode.value = subTreeMin;
-                // Delete the minimum in right subtree
-                currentNode.right = deleteNode(currentNode.right, subTreeMin);
+                // Delete the minimum in right subtree (which is a duplicate now)
+                currentNode.right = rDeleteNode(currentNode.right, subTreeMin);
             }
         }
         // Return the modified tree
