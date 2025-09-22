@@ -114,6 +114,28 @@ public class ArrayProblems {
     }
 
     /**
+     * This method rotates an array to the left by 'k' positions.
+     * It uses a three-step reversal algorithm to achieve this in O(n) time complexity.
+     * The algorithm works as follows:
+     * 1. Reverse the first k elements.
+     * 2. Reverse the remaining n-k elements.
+     * 3. Reverse the entire array. 
+     * 
+     * @param nums the input array to be rotated
+     * @param k the number of positions to rotate the array
+     */
+    public static void rotateCounterClockwise(int[] nums, int k) {
+        k = k%nums.length; //cases where k>arr.length
+        int n = nums.length;
+        // Swap numbers from 0 till k-1 iteratively
+        reverse(nums, 0, k-1);
+        // Swap numbers from k till end of the array
+        reverse(nums, k, n-1);
+        // Swap numbers from 0 till end of the array
+        reverse(nums, 0, n-1);
+    }
+
+    /**
      * This helper method reverses a portion of the array from 'start' to 'end'.
      * It uses a two-pointer technique to swap elements until the pointers meet.
      * 
