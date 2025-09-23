@@ -10,9 +10,11 @@ public class DynamicProgramming {
         if(memo[n]!=null) {
             return memo[n];
         }
-        if(n==0||n==1) return n;
+        if(n==0||n==1) memo[n] = n;
+        else {
+            memo[n] = fibonacii(n-1)+fibonacii(n-2);
+        }
 
-        memo[n] = fibonacii(n-1)+fibonacii(n-2);
         return memo[n];
     }
 

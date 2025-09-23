@@ -108,6 +108,24 @@ public class Stack<T> {
         }
     }
 
+    /**
+     * Check if the parentheses are balanced
+     * The algorithm works by using a stack to keep track of opening parentheses.
+     * When an opening parenthesis is encountered, it is pushed onto the stack.
+     * When a closing parenthesis is encountered, the algorithm checks if the stack is empty.
+     * If the stack is empty, it means there is no matching opening parenthesis, and
+     * the parentheses are not balanced. If the stack is not empty, the top element is
+     * popped from the stack, and the algorithm checks if it matches the closing parenthesis.
+     * If it matches, the algorithm continues to the next character. If it does not match,
+     * the parentheses are not balanced. At the end of the algorithm, if the stack is empty,
+     * it means all opening parentheses had matching closing parentheses, and the parentheses
+     * are balanced. If the stack is not empty, it means there are unmatched opening parentheses,
+     * and the parentheses are not balanced.
+     * 
+     * @param input
+     * @return
+     * @throws Exception
+     */
     public static boolean isBalancedParentheses(String input) throws Exception {
         Stack<Character> stack = new Stack<>();
         for(char ch:input.toCharArray()) {
@@ -122,6 +140,7 @@ public class Stack<T> {
                    (top=='[' && ch==']') ||
                    (top=='{' && ch=='}')) {
                     stack.pop();
+                    continue;
                 } else {
                     return false;
                 }

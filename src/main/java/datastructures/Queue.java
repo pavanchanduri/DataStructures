@@ -80,6 +80,10 @@ public class Queue {
         length = 0;
     }
 
+    /**
+     * Enqueue - Adding a node to the end of the queue
+     * @param value
+     */
     public void enqueue(int value) {
         Node newNode = new Node(value);
         if (length == 0) {
@@ -92,6 +96,10 @@ public class Queue {
         length++;
     }
 
+    /**
+     * Dequeue - Removing a node from the beginning of the queue
+     * @return
+     */
     public Node dequeue() {
         if(length==0) return null;
         Node temp;

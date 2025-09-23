@@ -4,6 +4,15 @@ import java.util.Arrays;
 
 public class SortingAlgorithms {
 
+    /**
+     * Bubble Sort Algorithm
+     * The algorithm works by repeatedly stepping through the list to be sorted,
+     * comparing each pair of adjacent items and swapping them if they are in the wrong order.
+     * The pass through the list is repeated until no swaps are needed, which means the list
+     * is sorted.
+     * 
+     * @param arr the array to be sorted
+     */
     public static void bubbleSort(int[] arr) {
 
         //This algorithm brings the least number to the front of the array
@@ -19,6 +28,15 @@ public class SortingAlgorithms {
         }
     }
 
+    /**
+     * Selection Sort Algorithm
+     * The algorithm works by dividing the array into a sorted and unsorted part.
+     * The sorted part is built up from left to right, and the smallest element from the unsorted part
+     * is selected and swapped with the leftmost unsorted element, moving the boundary between the
+     * sorted and unsorted parts one position to the right.
+     * 
+     * @param array the array to be sorted
+     */
     public static void selectionSort(int[] array) {
         // Outer loop: Iterate through all elements in the array
         for (int i = 0; i < array.length; i++) {

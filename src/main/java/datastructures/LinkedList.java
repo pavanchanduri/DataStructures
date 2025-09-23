@@ -356,22 +356,21 @@ public class LinkedList {
         Node slow = head;
         Node fast = head;
 
-        // First, detect if there is a cycle
+        // Move slow pointer one step at a time and fast pointer two steps at a time
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if (slow == fast) {
-                Node finder = head;
-                // Cycle detected, now find the start node of the cycle
-                while (finder != slow) {
-                    finder = finder.next;
-                    slow = slow.next;
-                }
-                return finder; // Node where the cycle begins
-            }
+            if (slow == fast) break;
         }
-        // No cycle detected
-        return null;
+
+        if (fast == null || fast.next == null) return null; // No cycle
+
+        Node finder = head;
+        while (finder != slow) {
+            finder = finder.next;
+            slow = slow.next;
+        }
+        return finder;
     }
 
     /**
@@ -806,7 +805,7 @@ public class LinkedList {
         tail = temp;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         LinkedList ll = new LinkedList(1);
         ll
                 .append(2).append(3).append(3).append(1)
